@@ -11,7 +11,7 @@ export default function Input({ label, error, ...props }: InputProps) {
       </label>
       <input
         {...props}
-        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+        className="text-gray-800 block w-full p-2 rounded-md border border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
       />
       {error && (
         <p className="text-sm text-red-600">{error}</p>
