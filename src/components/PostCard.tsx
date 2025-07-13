@@ -1,14 +1,12 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 interface PostCardProps {
   post: {
     id: number;
-    user: {
-      username: string;
-      avatarUrl: string;
-    };
-    imageUrl: string;
+    username: string;
+    avatarurl: string;
+    imageurl: string;
     caption: string;
     likes: number;
     comments: number;
@@ -23,24 +21,24 @@ export default function PostCard({ post }: PostCardProps) {
       <div className="flex items-center p-4">
         <div className="relative w-8 h-8 mr-3">
           <Image
-            src={`${post.user.avatarUrl}?random=${post.id}`}
-            alt={post.user.username}
+            src={`${post.avatarurl}?random=${post.id}`}
+            alt={post.username}
             fill
             className="rounded-full object-cover"
           />
         </div>
         <Link
-          href={`/profile/${post.user.username}`}
+          href={`/profile/${post.username}`}
           className="hover:underline text-gray-800 font-regular"
         >
-          {post.user.username}
+          {post.username}
         </Link>
       </div>
 
       {/* Image */}
       <div className="relative aspect-square">
         <Image
-          src={`${post.imageUrl}?random=${post.id}`}
+          src={`${post.imageurl}?random=${post.id}`}
           alt="Post image"
           fill
           className="object-cover"
@@ -89,10 +87,10 @@ export default function PostCard({ post }: PostCardProps) {
         {/* Caption */}
         <p className="mb-2 text-gray-500">
           <Link
-            href={`/profile/${post.user.username}`}
+            href={`/profile/${post.username}`}
             className="font-bold hover:underline mr-2 text-gray-800"
           >
-            {post.user.username}
+            {post.username}
           </Link>
           {post.caption}
         </p>
