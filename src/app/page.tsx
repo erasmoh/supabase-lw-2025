@@ -1,103 +1,143 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Navbar from '@/components/Navbar';
+import PostCard from '@/components/PostCard';
+
+// Mock data para demostración
+const mockPosts = [
+  {
+    id: 1,
+    user: {
+      username: 'usuario1',
+      avatarUrl: 'https://picsum.photos/150/150'
+    },
+    imageUrl: 'https://picsum.photos/600/600',
+    caption: '¡Disfrutando de un hermoso día! 🌞',
+    likes: 42,
+    comments: 5,
+    createdAt: '2025-07-12T12:00:00Z'
+  },
+  {
+    id: 2,
+    user: {
+      username: 'fotografia_pro',
+      avatarUrl: 'https://picsum.photos/150/150'
+    },
+    imageUrl: 'https://picsum.photos/600/600',
+    caption: 'La belleza está en los detalles 📸',
+    likes: 128,
+    comments: 12,
+    createdAt: '2025-07-12T10:30:00Z'
+  },
+  {
+    id: 3,
+    user: {
+      username: 'viajero_nomada',
+      avatarUrl: 'https://picsum.photos/150/150'
+    },
+    imageUrl: 'https://picsum.photos/600/600',
+    caption: 'Explorando nuevos horizontes ✈️',
+    likes: 89,
+    comments: 8,
+    createdAt: '2025-07-12T09:15:00Z'
+  }
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  // Simular verificación de autenticación
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Simular carga de estado de autenticación
+  useEffect(() => {
+    // Aquí iría la lógica real de verificación de autenticación
+    const checkAuth = () => {
+      // Por ahora, usaremos un valor hardcodeado
+      setIsAuthenticated(true);
+    };
+
+    checkAuth();
+  }, []);
+
+  if (isAuthenticated) {
+    return (
+      <>
+        <Navbar />
+        <div className="pt-16 min-h-screen bg-gray-50">
+          <main className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {/* Botón para crear nuevo post */}
+            <div className="mb-8">
+              <Link
+                href="/create-post"
+                className="block w-full bg-blue-500 text-white text-center px-6 py-3 rounded-md hover:bg-blue-600 transition-colors"
+              >
+                Crear nueva publicación
+              </Link>
+            </div>
+
+            {/* Lista de posts */}
+            <div className="space-y-6">
+              {mockPosts.map(post => (
+                <PostCard key={post.id} post={post} />
+              ))}
+            </div>
+          </main>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </>
+    );
+  }
+  // Si no está autenticado, mostrar la página de bienvenida
+  return (
+    <>
+      <Navbar />
+      <div className="pt-16 min-h-screen bg-gray-50">
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl font-bold text-gray-900 mb-6">
+              Bienvenido a lw-gram
+            </h1>
+            <p className="text-lg text-gray-600 mb-8">
+              Tu espacio para compartir momentos especiales de manera simple y elegante.
+            </p>
+            <div className="flex gap-4 justify-center">
+              <Link
+                href="/register"
+                className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition-colors"
+              >
+                Crear cuenta
+              </Link>
+              <Link
+                href="/login"
+                className="bg-white text-gray-900 px-6 py-3 rounded-md border border-gray-300 hover:bg-gray-50 transition-colors"
+              >
+                Iniciar sesión
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">Comparte</h3>
+              <p className="text-gray-600">
+                Comparte tus momentos más especiales con una comunidad que aprecia la simplicidad.
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">Conecta</h3>
+              <p className="text-gray-600">
+                Conéctate con personas que comparten tus intereses y pasiones.
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">Descubre</h3>
+              <p className="text-gray-600">
+                Descubre historias inspiradoras y contenido único en un ambiente minimalista.
+              </p>
+            </div>
+          </div>
+        </main>
+      </div>
+    </>
   );
 }
