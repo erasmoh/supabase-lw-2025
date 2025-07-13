@@ -32,6 +32,7 @@ export default function Navbar({ initialUser }: NavbarProps) {
         setUser(currentUser);
         router.refresh();
       }
+      localStorage.setItem('user', JSON.stringify(currentUser));
     } catch (error) {
       console.error('Error checking auth state:', error);
     }
@@ -53,6 +54,7 @@ export default function Navbar({ initialUser }: NavbarProps) {
     try {
       await supabase.auth.signOut();
       setUser(null);
+      localStorage.removeItem('user');
       window.location.href = '/';
     } catch (error) {
       console.error('Error signing out:', error);

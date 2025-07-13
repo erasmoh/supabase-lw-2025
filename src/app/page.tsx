@@ -1,11 +1,13 @@
-import PostFeed from '@/components/PostFeed';
-import HomepageContent from '@/components/HomepageContent';
-import { createClient } from '@/utils/supabase/server';
+import PostFeed from "@/components/PostFeed";
+import HomepageContent from "@/components/HomepageContent";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function Home() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   // Solo cargar posts si hay un usuario autenticado
   const { data: posts } = user
     ? await supabase.from("posts").select()
