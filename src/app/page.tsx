@@ -2,6 +2,17 @@ import PostFeed from "@/components/PostFeed";
 import HomepageContent from "@/components/HomepageContent";
 import { createClient } from "@/utils/supabase/server";
 
+interface Post {
+  id: number;
+  username: string;
+  avatarurl: string;
+  imageurl: string;
+  caption: string;
+  likes: number;
+  comments: number;
+  createdAt: string;
+}
+
 export default async function Home() {
   const supabase = await createClient();
   const {
@@ -9,9 +20,19 @@ export default async function Home() {
   } = await supabase.auth.getUser();
 
   // Solo cargar posts si hay un usuario autenticado
-  const { data: posts } = user
-    ? await supabase.from("posts").select()
+  const { data: rawPosts } = user
+    ? await supabase
+        .from("posts")
+        .select()
     : { data: null };
+
+  // Mapear los posts y convertir created_at a createdAt
+  const posts = rawPosts
+    ? rawPosts.map(post => ({
+        ...post,
+        createdAt: post.created_at
+      })).reverse()
+    : null;
 
   return (
     <>

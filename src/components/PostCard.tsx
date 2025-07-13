@@ -10,7 +10,7 @@ interface PostCardProps {
     caption: string;
     likes: number;
     comments: number;
-    createdAt: string;
+    createdat: string;
   };
 }
 
@@ -105,7 +105,13 @@ export default function PostCard({ post }: PostCardProps) {
 
         {/* Timestamp */}
         <p className="text-gray-400 text-xs mt-2">
-          {new Date(post.createdAt).toLocaleDateString()}
+          {new Date(post.createdat).toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })}
         </p>
       </div>
     </div>

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/utils/supabase/client';
 
 interface NavbarProps {
@@ -69,8 +70,16 @@ export default function Navbar({ initialUser }: NavbarProps) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-xl font-semibold">
-              lw-gram
+            <Link href="/" className="text-xl font-semibold flex items-center gap-2">
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={150}
+                height={32}
+                className="rounded-full"
+                priority
+              />
+              {/* <span>lw-gram</span> */}
             </Link>
           </div>
           <div className="flex items-center space-x-4">
